@@ -1,0 +1,61 @@
+import random
+wins = 0
+loses = 0
+
+def find_letter(str_1, str_2, ch):
+  for i in range(len(str_1)):
+    str_2 = str_2[:i] + ch + str_2[i + 1:] if str_1[i] == ch else str_2
+  return str_2
+
+
+def game():
+  guesses = 'python', 'java', 'swift', 'javascript'
+  guess = random.choice(guesses)
+  a = 8
+  previous = []
+  word = '-' *(len(guess))
+  while True:
+      print(word)
+      if word == guess:
+          print('You guessed the word {}!'.format(word))
+          print("You survived!")
+          global wins
+          wins += 1
+          break
+      player_input = input("Input a letter: ")
+      if len(player_input) != 1:
+          print("Please, input a single letter.")
+      elif not player_input.isalpha() or not player_input.islower():
+          print("Please, enter a lowercase letter from the English alphabet.")
+      elif  player_input in previous:
+          print("You've already guessed this letter.")
+          a -= 1
+      elif player_input in guess:
+          word = find_letter(guess, word, player_input)
+          previous.append(player_input)
+          print('')
+      else:
+          print("That letter doesn't appear in the word.\n")
+          previous.append(player_input)
+          print('')
+          a -= 1
+      if a == 0 and guess != word:
+          print("You lost!")
+          global loses
+          loses += 1
+          break
+
+str = 'H ' + 'A ' + 'N ' + 'G ' + 'M ' + 'A ' + 'N'
+print(str)
+
+while True:
+    menu = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+    if menu == 'play':
+        game()
+    elif menu == 'results':
+        print("You won: {} times".format(wins))
+        print("You lost: {} times".format(loses))
+        continue
+    else:
+        break
+
