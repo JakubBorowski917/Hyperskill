@@ -1,0 +1,115 @@
+function coffeeMaker() {
+    let water = 400, milk = 540, soyMilk = 420, coffeeBeans = 120, cups = 9, money = 550;
+    while(true){
+        console.log('Write action (buy, fill, take, remaining, exit):');
+        let action = input();
+        if(action === 'exit'){break};
+        switch(action){
+            case 'buy':
+                console.log('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back-exit to main menu');
+                let num = input();
+                switch(num) {
+                    case '1':
+                        switch(true){
+                            case water < 250:
+                                console.log('Sorry, not enough water!');
+                                break;
+                            case coffeeBeans < 16:
+                                console.log('Sorry, not enough coffee beans!');
+                                break;
+                            case cups < 1:
+                                console.log('Sorry, not enough cups!');
+                                break;
+                            default:
+                                console.log('I have enough resources, making you a coffee!');
+                                water -= 250;
+                                coffeeBeans -= 16;
+                                cups--;
+                                money += 4;
+                                break;
+                        }
+                     break;
+                    case '2':
+                        switch(true){
+                            case water < 350:
+                                console.log('Sorry, not enough water!');
+                                break;
+                            case milk < 75 || soyMilk < 75:
+                                console.log('Sorry, not enough milk!');
+                                break;
+                            case coffeeBeans < 20:
+                                console.log('Sorry, not enough coffee beans!');
+                                break;
+                            case cups < 1:
+                                console.log('Sorry, not enough cups!');
+                                break;
+                            default:
+                                console.log('I have enough resources, making you a coffee!');
+                                water -= 350;
+                                milk -= 75;
+                                coffeeBeans -= 20;
+                                cups--;
+                                money += 7;
+                                break;
+                        }
+                    break;
+                    case '3':
+                        switch(true){
+                            case water < 200:
+                                console.log('Sorry, not enough water!');
+                                break;
+                            case milk < 100:
+                                console.log('Sorry, not enough milk!');
+                                break;
+                            case coffeeBeans < 12:
+                                console.log('Sorry, not enough coffee beans!');
+                                break;
+                            case cups < 1:
+                                console.log('Sorry, not enough cups!');
+                                break;
+                            default:
+                                console.log('I have enough resources, making you a coffee!');
+                                console.log('What milk do you want? 1 - regular, 2 - soy');
+                                let milkSelect = prompt();
+                                milkSelect === '2' ? milk = soyMilk : null;
+                                water -= 200;
+                                milk -= 100;
+                                coffeeBeans -= 12;
+                                cups--;
+                                money += 6;
+                                break;
+                        }
+                    case 'back':
+                        break;
+                };
+              break;
+            case 'fill':
+                console.log('Write how many ml of water you want to add:');
+                let addedWater = Number(input());
+                console.log('Write how many ml of milk you want to add:');
+                let addedMilk = Number(input());
+                console.log('Write how many grams of coffee beans you want to add:');
+                let addedCoffeeBeans = Number(input());
+                console.log('Write how many disposable coffee cups you want to add:');
+                let addedCups = Number(input());
+                water += addedWater;
+                milk += addedMilk;
+                coffeeBeans += addedCoffeeBeans;
+                cups += addedCups;
+                break;
+            case 'take':
+                console.log(`I gave you $${money}`);
+                money = 0;
+                break;
+            case 'remaining':
+                console.log('The coffee machine has:\n' +
+                    `${water} ml of water\n` +
+                    `${milk} ml of milk\n` +
+                    `${coffeeBeans} g of coffee beans\n` +
+                    `${cups} disposable cups\n` +
+                    `$${money} of money`);
+                break;
+        }
+    }
+}
+coffeeMaker();
