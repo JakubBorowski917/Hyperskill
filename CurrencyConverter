@@ -1,0 +1,55 @@
+//Write your code here0.75 GBPv0.75 GBP
+let currList = {"USD": 1, "JPY": 113.5, "EUR": 0.89, "RUB": 74.36, "GBP": 0.75};
+console.log('Welcome to Currency Converter!');
+for(const [k,v] of Object.entries(currList)){
+  console.log(`1 USD equals ${v + ' ' + k}`);
+}
+let shouldBreak = false;
+while(true){
+  console.log('What do you want to do?');
+  let input = require('sync-input');
+  let answer = Number(input('1-Convert currencies 2-Exit program\n'));
+  switch(answer){
+    case 1:
+    console.log('What do you want to convert?');
+    let convertFrom = input("From: ").toUpperCase();
+    for(let curr in currList){ 
+      if(currList[convertFrom] == undefined) {
+        console.log('Unknown currency');
+        break;
+      }
+      else{
+        let convertTo = input("To: ").toUpperCase();
+          if(currList[convertTo] == undefined) {
+            console.log('Unknown currency');
+            break;
+          }
+        let amount = input("Amount: ");
+        if(isNaN(amount)){
+          console.log('The amount has to be a number');
+          break;
+      }
+        else if(amount < 1){
+          console.log('The amount cannot be less than 1');
+          break;
+      }
+        else {
+            const converted = amount/currList[convertFrom].toFixed(4) * currList[convertTo].toFixed(4);
+            console.log(`Result: ${amount} ${convertFrom} equals ${converted.toFixed(4)} ${convertTo}`);
+            break;
+        }
+      }
+  }
+    break;
+    case 2:
+     console.log('Have a nice day!');
+     shouldBreak = true;
+     break;
+    default:
+     console.log('Unknown input');
+     break;
+  }
+  if(shouldBreak === true){
+    break;
+  }
+}
