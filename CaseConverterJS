@@ -1,0 +1,37 @@
+document.getElementById("upper-case").addEventListener("click",function() {
+   document.getElementById('myTextarea').value =  document.getElementById('myTextarea').value.toUpperCase();
+});
+document.getElementById("lower-case").addEventListener("click",function(){document.getElementById('myTextarea').value =  document.getElementById('myTextarea').value.toLowerCase();});
+document.getElementById("proper-case").addEventListener("click",function(){
+    let sent = document.getElementById('myTextarea').value.split(' ');
+     for(let l in sent){
+         sent[l] = sent[l].slice(0,1).toUpperCase() + sent[l].slice(1);
+     }
+    document.getElementById('myTextarea').value = sent.join(' ');
+});
+document.getElementById("sentence-case").addEventListener("click",function(){
+    let sent = document.getElementById('myTextarea').value.toLowerCase().split('. ');
+    for (let i in sent){
+        sent[i] = sent[i].slice(0,1).toUpperCase() + sent[i].slice(1);
+    }
+    document.getElementById('myTextarea').value = sent.join('. ');
+});
+
+function download(filename, text) {
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+document.getElementById('save-text-file').addEventListener("click", function (){
+    let text = document.getElementById('myTextarea').value;
+    let filename = "text.txt"
+    download(filename,text)
+},false);
